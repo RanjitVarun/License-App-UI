@@ -1,0 +1,931 @@
+@import './variables.scss';
+
+@mixin border($width, $style, $color, $radius) {
+  border: $width $style $color;
+  border-radius: $radius;
+}
+
+@mixin margin ($top, $right, $bottom, $left) {
+  margin: $top $right $bottom $left;
+}
+
+@mixin wh ($width, $height) {
+  width: $width;
+  height: $height;
+}
+
+@mixin transition($property, $delay, $animation-type) {
+  transition: $property $delay $animation-type;
+  -webkit-transition: $property $delay $animation-type;
+  -ms-transition: $property $delay $animation-type;
+  -moz-transition: $property $delay $animation-type;
+}
+
+@mixin box-shadow ($horizontal, $vertical, $blur, $color) {
+  box-shadow: $horizontal $vertical $blur $color;
+  -webkit-box-shadow: $horizontal $vertical $blur $color;
+  -moz-box-shadow: $horizontal $vertical $blur $color;
+  -ms-box-shadow: $horizontal $vertical $blur $color;
+}
+
+$color-scheme: (('CornflowerBlue', #567CFF),
+  ('NavyBlue', #0066CC),
+  ('Blue', #0000FF),
+  ('NewMidnightBlue', #000099),
+  ('PrussianBlue', #072F5F),
+  ('Denim', #1261A0),
+  ('SummerSky', #3895D3),
+  ('RegalBlue', #133D55),
+  ('Lochmara', #386FA5),
+  ('Tangaroa', #13293D),
+  ('Cerulean', #006494),
+  ('MediumBlue', #1100BB),
+  ('MidnightBlue', #221177),
+  ('Scooter', #2380A4),
+  ('Navy', #00007C));
+
+@mixin theme($name, $primary) {
+  .#{$name} {
+    .site-header {
+      background: $primary;
+    }
+
+    .custom-navbar {
+      .custom-menu {
+        .custom__menu-item {
+          .custom-dropdown {
+            .custom-dropdown-menu {
+              .dropdown-menu-list {
+                .custom-dropdown-header {
+                  color: $primary;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .custom-sidebar {
+      .sidebar-wrap {
+        &.sidebar-tabs {
+          .sidebar-menu-btn {
+            .side-menu-content-link {
+              &.active {
+                color: $primary;
+              }
+            }
+          }
+
+          .sidebar-menu {
+            .sidebar-menu-btn-link {
+              &[aria-expanded='true'] {
+                color: $primary;
+              }
+            }
+          }
+        }
+      }
+
+      .sidebar-toggler {
+        &:before {
+          color: $primary;
+        }
+      }
+    }
+
+    .sign-page {
+      .signin-content {
+        .signin-form {
+          form {
+            .signin-form-group {
+              .signin-form-control {
+
+                &:focus,
+                &.has-val {
+                  +.signin-label {
+                    &:after {
+                      color: $primary;
+                    }
+                  }
+                }
+              }
+
+              .signin-label {
+                &:before {
+                  @include border(0.125rem, solid, $primary, 0.4375rem);
+                }
+              }
+
+              .custom-checkbox {
+                label {
+                  input[type=checkbox] {
+                    &:checked {
+                      +span {
+                        border-color: $primary;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    body {
+      &.apollo {
+        .primary-button {
+          border-color: $primary;
+          color: $white;
+          background: $primary;
+          position: relative;
+          display: inline-block;
+          min-width: 4.0625rem;
+
+          &:before {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 0.3125rem;
+            background: rgba(255, 255, 255, 0.2);
+            -webkit-transform: scale(0);
+            transform: scale(0);
+            -webkit-transition-property: transform;
+            transition-property: transform;
+            -webkit-transition-duration: 0.2s;
+            transition-duration: 0.2s;
+            -webkit-transition-timing-function: ease-out;
+            transition-timing-function: ease-out;
+          }
+
+          &:hover {
+            border: 0.0625rem solid rgba(255, 255, 255, 0.2);
+            text-decoration: none;
+
+            &:before {
+              -webkit-transform: scale(1);
+              transform: scale(1);
+              z-index: 1;
+            }
+          }
+        }
+
+        .secondary-button {
+          border-color: $primary;
+          color: $primary;
+          position: relative;
+          display: inline-block;
+          min-width: 4.0625rem;
+
+          &:before {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 0.3125rem;
+            background: rgba(0, 0, 0, 0.075);
+            -webkit-transform: scale(0);
+            transform: scale(0);
+            -webkit-transition-property: transform;
+            transition-property: transform;
+            -webkit-transition-duration: 0.2s;
+            transition-duration: 0.2s;
+            -webkit-transition-timing-function: ease-out;
+            transition-timing-function: ease-out;
+          }
+
+          &:hover {
+            text-decoration: none;
+            &:before {
+              -webkit-transform: scale(1);
+              transform: scale(1);
+              z-index: 1;
+            }
+          }
+
+        }
+
+        .custom-checkbox {
+          input[type=checkbox] {
+            &:checked {
+              +span {
+                border-color: $primary;
+                background-color: $primary;
+              }
+            }
+          }
+        }
+
+        .custom-radio {
+          input[type=radio] {
+            &:checked {
+              +span {
+                background: $primary;
+                border-color: $primary;
+              }
+            }
+          }
+        }
+
+        .dropdown-item {
+
+          &.active,
+          &:hover {
+            background-color: $primary;
+          }
+        }
+
+        .custom-tabs {
+          .nav-tabs {
+            .nav-item {
+              .nav-link {
+                &:after {
+                  background: $primary;
+                }
+              }
+            }
+          }
+        }
+
+        .custom-scroll {
+          .simplebar-track {
+            .simplebar-scrollbar {
+              &:before {
+                background: $primary;
+              }
+            }
+          }
+        }
+
+        .page-loader {
+          &:empty {
+            border-top: 0.625rem solid $primary;
+          }
+        }
+      }
+
+      .filter-wrap {
+        .grid-button-wrap {
+          .grid-btn-grp {
+            .button {
+              &.active {
+                color: $primary;
+              }
+            }
+          }
+        }
+      }
+
+      .loan-details-page {
+        .application-tab-content {
+          .business-form {
+            .custom-form {
+              .date-control-wrap {
+                .date-control {
+                  color: $primary;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .custom-pagination {
+        .pagination {
+          li {
+            a {
+              &:hover {
+                background-color: $primary;
+              }
+            }
+
+            &.active {
+              a {
+                background-color: $primary;
+              }
+            }
+          }
+        }
+      }
+
+      .color-options {
+        .theme-color {
+
+          &.active,
+          &:hover {
+            outline-color: $primary;
+          }
+        }
+      }
+    }
+
+    .custom-list-wrap {
+      .custom-list-group {
+        .block-head {
+          .block-title{
+            color: $primary;
+          }
+        }
+
+        .form-list-wrap {
+          .form-list {  
+            &:hover,
+            &.active {
+              background: $primary !important;
+              color: #FFFFFF;
+            }
+          }
+        }
+      }
+    }
+
+    .wordwrx-page {
+      .drag-wrap {
+        // display: block;
+        // height: 590px;
+        // overflow-y: auto;
+        // scroll-behavior: smooth;
+        // .e-treeview .e-ul {
+        //   padding: 0;
+        // }
+        // .e-treeview .e-list-item .e-ul {
+        //   padding: 0;
+        // }
+        .e-listview {
+          // margin-left: 0;
+          // padding-left: 0;
+          .e-list-item {
+            // margin-left: 0;
+            // padding-left: 0;
+            &.e-hover {
+              background-color: $primary;
+            
+            }
+          }
+        }
+      }
+
+      .editor-container {
+        .e-de-ctn {
+          .e-toolbar {
+            .e-tbar-btn {
+              &:hover,
+              &:focus,
+              &.e-btn-toggle {
+                background: $primary !important;
+                border-color: $primary !important;
+              }
+            }
+          }
+
+          .e-de-ctnr-properties-pane-btn {
+            .e-btn {
+              &:hover {
+                background-color: $primary;
+                border-color: $primary;
+              }
+            }
+          }
+
+          .e-de-pane {
+            .e-input-group {
+              // &:not(.e-disabled) {
+              //   .e-input-group-icon {
+              //     &:active {
+              //       background: $primary;
+              //     }
+              //   }
+              // }
+
+              // &.e-control-wrapper {
+              //   &:not(.e-disabled) {
+              //     .e-input-group-icon {
+              //       &:hover {
+              //         &:active {
+              //           background: $primary;
+              //         }
+              //       }
+              //     }
+              //   }
+              // }
+
+              .e-btn {
+                &.e-btn-toggle,
+                &.e-active,
+                &:active,
+                &:hover {
+                  background-color: $primary !important;
+                }
+              }
+            }
+          }
+
+          .e-de-status-bar {
+            .e-btn {
+              &.e-de-statusbar-zoom {
+                &:hover {
+                  background-color: $primary;
+                  border-color: $primary;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .e-btn.e-primary,
+    .e-css.e-btn.e-primary,
+    .e-btn.e-flat.e-primary,
+    .e-css.e-btn.e-flat.e-primary,
+    .e-btn.e-flat.e-primary:hover,
+    .e-btn.e-flat.e-primary:active,
+    .e-btn.e-flat.e-primary.e-active,
+    .e-css.e-btn.e-flat.e-primary:active,
+    .e-css.e-btn.e-flat.e-primary.e-active,
+    .e-checkbox-wrapper .e-frame.e-check,
+    .e-css.e-checkbox-wrapper .e-frame.e-check,
+    .e-checkbox-wrapper:hover .e-frame.e-check,
+    .e-css.e-checkbox-wrapper:hover .e-frame.e-check,
+    .e-checkbox-wrapper .e-checkbox:focus+.e-frame.e-check,
+    .e-css.e-checkbox-wrapper .e-checkbox:focus+.e-frame.e-check {
+      background-color: $primary;
+      border-color: $primary;
+    }
+
+    .e-input-group:not(.e-disabled) .e-input-group-icon:hover,
+    .e-input-group.e-control-wrapper:not(.e-disabled) .e-input-group-icon:hover {
+      background: rgba(86, 124, 255, 0.3);
+    }
+
+    .e-input-group:not(.e-disabled) .e-input-group-icon:active,
+    .e-input-group.e-control-wrapper:not(.e-disabled) .e-input-group-icon:active {
+      background: $primary;
+    }
+
+    .e-dialog .e-btn.e-dlg-closeicon-btn:hover span {
+      color: $primary;
+    }
+
+    .e-spinner-pane .e-spinner-inner .e-spin-material {
+      stroke: $primary;
+    }
+  }
+}
+
+@each $name,
+$primary in $color-scheme {
+  @include theme($name, $primary);
+}
+
+
+
+/**** Default theme when color failures *****/
+
+.site-header {
+  background: #567CFF;
+}
+
+.custom-navbar {
+  .custom-menu {
+    .custom__menu-item {
+      .custom-dropdown {
+        .custom-dropdown-menu {
+          .dropdown-menu-list {
+            .custom-dropdown-header {
+              color: #567CFF;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.custom-sidebar {
+  .sidebar-wrap {
+    &.sidebar-tabs {
+      .sidebar-menu-btn {
+        .side-menu-content-link {
+          &.active {
+            color: #567CFF;
+          }
+        }
+      }
+
+      .sidebar-menu {
+        .sidebar-menu-btn-link {
+          &[aria-expanded='true'] {
+            color: #567CFF;
+          }
+        }
+      }
+    }
+  }
+
+  .sidebar-toggler {
+    &:before {
+      color: #567CFF;
+    }
+  }
+}
+
+.sign-page {
+  .signin-content {
+    .signin-form {
+      form {
+        .signin-form-group {
+          .signin-form-control {
+
+            &:focus,
+            &.has-val {
+              +.signin-label {
+                &:after {
+                  color: #567CFF;
+                }
+              }
+            }
+          }
+
+          .signin-label {
+            &:before {
+              @include border(0.125rem, solid, #567CFF, 0.4375rem);
+            }
+          }
+
+          .custom-checkbox {
+            label {
+              input[type=checkbox] {
+                &:checked {
+                  +span {
+                    border-color: #567CFF;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+body {
+  &.apollo {
+    .primary-button {
+      border-color: #567CFF;
+      color: $white;
+      background: #567CFF;
+      position: relative;
+      display: inline-block;
+      min-width: 4.0625rem;
+
+      &:before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 0.3125rem;
+        background: rgba(255, 255, 255, 0.2);
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        -webkit-transition-property: transform;
+        transition-property: transform;
+        -webkit-transition-duration: 0.2s;
+        transition-duration: 0.2s;
+        -webkit-transition-timing-function: ease-out;
+        transition-timing-function: ease-out;
+      }
+
+      &:hover {
+        border: 0.0625rem solid rgba(255, 255, 255, 0.2);
+        text-decoration: none;
+
+        &:before {
+          -webkit-transform: scale(1);
+          transform: scale(1);
+          z-index: 1;
+        }
+      }
+    }
+
+    .secondary-button {
+      border-color: #567CFF;
+      color: #567CFF;
+      position: relative;
+      display: inline-block;
+      min-width: 4.0625rem;
+
+      &:before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 0.3125rem;
+        background: rgba(0, 0, 0, 0.075);
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        -webkit-transition-property: transform;
+        transition-property: transform;
+        -webkit-transition-duration: 0.2s;
+        transition-duration: 0.2s;
+        -webkit-transition-timing-function: ease-out;
+        transition-timing-function: ease-out;
+      }
+
+      &:hover {
+        text-decoration: none;
+
+        &:before {
+          -webkit-transform: scale(1);
+          transform: scale(1);
+          z-index: 1;
+        }
+      }
+    }
+
+    .custom-checkbox {
+      input[type=checkbox] {
+        &:checked {
+          +span {
+            border-color: #567CFF;
+            background-color: #567CFF;
+          }
+        }
+      }
+    }
+
+    .custom-radio {
+      input[type=radio] {
+        &:checked {
+          +span {
+            background: #567CFF;
+            border-color: #567CFF;
+          }
+        }
+      }
+    }
+
+    .dropdown-item {
+
+      &.active,
+      &:hover {
+        background-color: #567CFF;
+      }
+    }
+
+    .custom-tabs {
+      .nav-tabs {
+        .nav-item {
+          .nav-link {
+            &:after {
+              background: #567CFF;
+            }
+          }
+        }
+      }
+    }
+
+    .custom-scroll {
+      .simplebar-track {
+        .simplebar-scrollbar {
+          &:before {
+            background: #567CFF;
+          }
+        }
+      }
+    }
+
+    .page-loader {
+      &:empty {
+        border-top: 0.625rem solid #567CFF;
+      }
+    }
+  }
+
+  .loan-details-page {
+    .application-tab-content {
+      .business-form {
+        .custom-form {
+          .date-control-wrap {
+            .date-control {
+              color: #567CFF;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .filter-wrap {
+    .grid-button-wrap {
+      .grid-btn-grp {
+        .button {
+          &.active {
+            color: #567CFF;
+          }
+        }
+      }
+    }
+  }
+
+  .custom-pagination {
+    .pagination {
+      li {
+        a {
+          &:hover {
+            background-color: #567CFF;
+          }
+        }
+
+        &.active {
+          a {
+            background-color: #567CFF;
+          }
+        }
+      }
+    }
+  }
+
+  .color-options {
+    .theme-color {
+
+      &.active,
+      &:hover {
+        outline-color: #567CFF;
+      }
+    }
+  }
+}
+
+.custom-list-wrap {
+  .custom-list-group {
+    .block-head {
+      .block-title{
+        color: #567CFF;
+      }
+    }
+
+    .form-list-wrap {
+      .form-list {  
+        &:hover,
+        &.active {
+          background: #567CFF !important;
+          color: #FFFFFF;
+        }
+      }
+    }
+  }
+}
+
+.wordwrx-page {
+  .drag-wrap {
+    display: block;
+    height: 590px;
+    overflow: auto;
+    scroll-behavior: smooth;
+    .e-treeview {
+      overflow: initial;
+    }
+    .e-treeview > .e-ul {
+      overflow: initial;
+    }
+    .e-treeview .e-ul {
+      padding: 0;
+    }
+    .e-treeview .e-list-item .e-ul {
+      padding: 0;
+    }
+    .e-listview {
+      margin-left: 0;
+      padding-left: 0;
+      .e-list-item {
+        margin-left: 0;
+        padding-left: 0;
+        &.e-hover {
+          background-color: #567CFF;
+        }
+      }
+    }
+  }
+
+  .editor-container {
+    .e-de-ctn {
+      .e-toolbar {
+        .e-tbar-btn {
+          &:hover,
+          &:focus,
+          &.e-btn-toggle {
+            background: #567CFF !important;
+            border-color: #567CFF !important;
+          }
+        }
+      }
+
+      .e-de-ctnr-properties-pane-btn {
+        .e-btn {
+          &:hover {
+            background-color: #567CFF;
+            border-color: #567CFF;
+          }
+        }
+      }
+
+      .e-de-pane {
+        .e-input-group {
+          // &:not(.e-disabled) {
+          //   .e-input-group-icon {
+          //     &:active {
+          //       background: #567CFF;
+          //     }
+          //   }
+          // }
+
+          // &.e-control-wrapper {
+          //   &:not(.e-disabled) {
+          //     .e-input-group-icon {
+          //       &:hover {
+          //         &:active {
+          //           background: #567CFF;
+          //         }
+          //       }
+          //     }
+          //   }
+          // }
+
+          .e-btn {
+            &.e-btn-toggle,
+            &.e-active,
+            &:active,
+            &:hover {
+              background-color: #567CFF !important;
+            }
+          }
+        }
+      }
+
+      .e-de-status-bar {
+        .e-btn {
+          &.e-de-statusbar-zoom {
+            &:hover {
+              background-color: #567CFF;
+              border-color: #567CFF;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.e-btn.e-primary,
+.e-css.e-btn.e-primary,
+.e-btn.e-flat.e-primary,
+.e-css.e-btn.e-flat.e-primary,
+.e-btn.e-flat.e-primary:hover,
+.e-btn.e-flat.e-primary:active,
+.e-btn.e-flat.e-primary.e-active,
+.e-css.e-btn.e-flat.e-primary:active,
+.e-css.e-btn.e-flat.e-primary.e-active,
+.e-checkbox-wrapper .e-frame.e-check,
+.e-css.e-checkbox-wrapper .e-frame.e-check,
+.e-checkbox-wrapper:hover .e-frame.e-check,
+.e-css.e-checkbox-wrapper:hover .e-frame.e-check,
+.e-checkbox-wrapper .e-checkbox:focus+.e-frame.e-check,
+.e-css.e-checkbox-wrapper .e-checkbox:focus+.e-frame.e-check {
+  background-color: #567CFF;
+  border-color: #567CFF;
+}
+
+.e-input-group:not(.e-disabled) .e-input-group-icon:hover,
+.e-input-group.e-control-wrapper:not(.e-disabled) .e-input-group-icon:hover {
+  background: rgba(86, 124, 255, 0.3);
+}
+
+.e-input-group:not(.e-disabled) .e-input-group-icon:active,
+.e-input-group.e-control-wrapper:not(.e-disabled) .e-input-group-icon:active {
+  background: #567CFF;
+}
+
+.e-dialog .e-btn.e-dlg-closeicon-btn:hover span {
+  color: #567CFF;
+}
+
+.e-spinner-pane .e-spinner-inner .e-spin-material {
+  stroke: #567CFF;
+}

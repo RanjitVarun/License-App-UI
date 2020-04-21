@@ -1,0 +1,32 @@
+// Color Variables
+$base-color:#333233;
+$page-bg: #F8F9FA;
+$white: #FFFFFF;
+$black: #000000;
+$secondary-color: #768696;
+$transparent: transparent;
+$button-color: #49494A;
+$custom-bg-success: #17CB94;
+$error: #FD0051;
+$warning: #FF9900;
+
+// Responsive variables
+$xl-device: 1200px;
+$large-device : 1199px;
+$custom-medium-device : 992px;
+$medium-device : 991px;
+$small-device : 767px;
+$xs-device : 575px;
+
+
+// for theme color options
+
+$colors: #567CFF #0066CC #0000FF #000099 #072F5F #1261A0 #3895D3 #133D55 #386FA5 #13293D #006494 #1100BB #221177 #2380A4 #00007C;
+
+@for $i from 1 through 15 {
+  .theme-color {
+    &:nth-child(#{$i}) {
+      background: nth($colors, $i);
+    }
+  }
+}

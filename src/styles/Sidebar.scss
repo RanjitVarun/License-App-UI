@@ -1,0 +1,217 @@
+@import '../styles/base/mixins.scss';
+@import '../styles/base/variables.scss';
+@import '../../node_modules/font-awesome/css/font-awesome.min.css';
+
+.custom-sidebar {
+  width: 15.9375rem;
+  @include border(0.0625rem, solid, #A7B8C8, 0.3125rem);
+  // padding: 1.25rem;
+  background: $white;
+  margin-right: 2.5rem;
+  
+  @media(max-width: $medium-device) {
+    margin-right: 0;
+  }
+
+  @media (max-width: $medium-device) {
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    bottom: 0;
+    left: -15.9375rem;
+    border-left: 0;
+    border-top: 0;
+    border-bottom: 0;
+    border-radius: 0;
+    @include transition(all, 0.5s, ease-in-out);
+  }
+
+  &.active {
+    left: 0;
+  }
+
+  .sidebar-toggler {
+    display: none;
+
+    @media(max-width: $medium-device) {
+      display: block;
+      @include wh(1.875rem, 3.125rem);
+      @include border(0.0625rem, solid, #A7B8C8, 0);
+      position: absolute;
+      z-index: 1;
+      right: -1.875rem;
+      top: 10.9375rem;
+      cursor: pointer;
+      background: $white;
+      @include transition(all, 0.5s, ease-in-out);
+
+      &:before {
+        position: absolute;
+        content: '\f101';
+        height: 100%;
+        width: 100%;
+        line-height: 3.125rem;
+        text-align: center;
+        font-family: 'FontAwesome';
+        font-size: 1.875rem;
+      }
+    }
+
+    &.active {
+      &:before {
+        content: '\f100';
+      }
+    }
+  }
+
+  .sidebar-wrap {
+    height: 100%;
+    position: relative;
+    padding: 1.25rem;
+
+    @media (max-width: $medium-device) {
+      overflow-y: scroll;
+    }
+
+    &.sidebar-tabs {
+      .sidebar-menu-btn {
+        width: 100%;
+        margin-bottom: 1.25rem;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        .side-menu-content-link {
+          padding-left: 0.9375rem;
+          color: $black;
+          width: calc(100% - 1.25rem);
+          width: -webkit-calc(100% - 1.25rem);
+          width: -moz-calc(100% - 1.25rem);
+          width: -ms-calc(100% - 1.25rem);
+          float: left;
+          position: relative;
+          line-height: 1.3;
+          text-decoration: none;
+        }
+
+        .side-menu-link {
+          margin: 0.3125rem 0 0 0.3125rem;
+          float: right;
+          height: 0.625rem;
+          width: 0.625rem;
+          background: url(../images/downArrowBlack.svg) no-repeat center center;
+          cursor: pointer;
+          transform: rotate(0);
+          -webkit-transform: rotate(0);
+          -moz-transform: rotate(0);
+          -ms-transform: rotate(0);
+
+          &.collapsed {
+            transform: rotate(-90deg);
+            -webkit-transform: rotate(-90deg);
+            -moz-transform: rotate(-90deg);
+            -ms-transform: rotate(-90deg);
+          }
+        }
+      }
+
+      .sidebar-menu {
+        .sidebar-menu-item {
+          font-size: 0.875rem;
+          margin-bottom: 0.9375rem;
+
+          .sidemenu-search {
+            @include wh(100%, 1.875rem);
+            @include border(0.0625rem, solid, #A7B8C8, 0.3125rem);
+            padding: 0 0.625rem;
+          }
+        }
+
+        .error-switch {
+          color: #808794;
+          float: left;
+          width: calc(100% - 2.5rem);
+          width: -webkit-calc(100% - 2.5rem);
+          width: -moz-calc(100% - 2.5rem);
+          width: -ms-calc(100% - 2.5rem);
+        }
+
+        .custom-switch {
+          float: right;
+        }
+
+        .sidebar-menu-btn-link {
+          padding: 0;
+          color: $black;
+          background-color: $transparent;
+          border-radius: 0;
+          width: 100%;
+          text-align: left;
+          position: relative;
+          font-size: 0.875rem;
+          margin-bottom: 0.625rem;
+
+          &::after {
+            content: '\f078';
+            font-family: 'FontAwesome';
+            font-size: 0.75rem;
+            position: absolute;
+            right: 0;
+            top: 0.0625rem;
+            color: $black;
+          }
+
+          &.collapsed {
+            &::after {
+              content: '\f054';
+            }
+          }
+
+          &:focus {
+            box-shadow: none;
+          }
+        }
+
+        .sub-menu {
+          max-height: 13.125rem;
+          margin-bottom: 0.9375rem;
+          margin-bottom: 0.9375rem;
+
+          ul {
+            padding-left: 0.625rem;
+          }
+
+          .sidebar-menu-link {
+            color: #5B5B5C;
+            cursor: pointer;
+            font-size: 0.8125rem;
+
+            &.yet-to-fill {
+              position: relative;
+
+              &:before {
+                position: absolute;
+                content: '';
+                left: -0.625rem;
+                top: 0;
+                @include wh (0.1875rem, 100%);
+                background: $error;
+              }
+            }
+
+            &.error-state {
+              color: $error;
+            }
+          }
+        }
+      }
+
+      .status-info {
+        position: absolute;
+        left: 0;
+        top: 0.25rem;
+      }
+    }
+  }
+}
