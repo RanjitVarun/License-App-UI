@@ -17,7 +17,7 @@ class ClientSubscription extends React.Component {
             clientID: '',
             serviceID: '',
             clientList: [],
-            serviceList:[],
+            serviceList: [],
             clientSubList: [],
             loaded: false,
             clientTitle: 'select client',
@@ -26,7 +26,7 @@ class ClientSubscription extends React.Component {
             filterValue: '',
             filtered: '',
             filteredResult: '',
-            renderPageBar:false,
+            renderPageBar: false,
             offset: 0,
             elements: [],
             perPage: 8,
@@ -35,30 +35,27 @@ class ClientSubscription extends React.Component {
         };
     }
 
-// initial API call for client, appservice, clientsubscriptions
+    // initial API call for client, appservice, clientsubscriptions
 
-    componentDidMount() {                                    
-
+    componentDidMount() {
         axios.get(`api/ClientSubscriptions`)
             .then(res => {
                 const persons = res.data;
                 this.setState({ clientSubList: persons, loaded: true }, this.paginate);
             })
-
         axios.get(`/api/Clients`)
             .then(res => {
                 const persons = res.data;
-                this.setState({ clientList: persons});
+                this.setState({ clientList: persons });
             })
-
         axios.get(`/api/AppServices`)
             .then(res => {
                 const persons = res.data;
-                this.setState({ serviceList: persons});
+                this.setState({ serviceList: persons });
             })
     }
 
-// state change events
+    // state change events
     //main change handler event
 
     changeHandler = (e) => {
@@ -78,7 +75,7 @@ class ClientSubscription extends React.Component {
         })
     }
 
-     //dropdown mapping for obtaining the appservice ID from the appservice Name for posting
+    //dropdown mapping for obtaining the appservice ID from the appservice Name for posting
 
     changeServiceID = (e) => {
         this.state.serviceList.map((result) => {
@@ -165,7 +162,7 @@ class ClientSubscription extends React.Component {
         });
     }
 
-//Check functions
+    //Check functions
     // check App service from the appservice state list
 
     checkappServiceName = (e) => {
@@ -192,7 +189,7 @@ class ClientSubscription extends React.Component {
         const pageCount = Math.ceil(this.state.clientSubList.length / this.state.perPage)
         this.setState({ pageCount: pageCount })
         const elements = this.state.clientSubList.slice(this.state.offset, this.state.offset + this.state.perPage)
-        this.setState({ elements: elements, renderPageBar:true})
+        this.setState({ elements: elements, renderPageBar: true })
     }
 
 
@@ -220,7 +217,7 @@ class ClientSubscription extends React.Component {
         }
     }
 
-//render methods
+    //render methods
     //render page number bar
 
     renderPageNumbersBar = () => {
@@ -246,8 +243,8 @@ class ClientSubscription extends React.Component {
             />
         }
     }
-    
-   //render list again after any changes
+
+    //render list again after any changes
 
     renderListagain = () => {
 
@@ -260,17 +257,17 @@ class ClientSubscription extends React.Component {
     }
 
 
- //filter functions
+    //filter functions
     //filter state change
 
     filterInput = (e) => {
-        this.setState({ filterValue: e.target.value },this.filterValues)
+        this.setState({ filterValue: e.target.value }, this.filterValues)
     }
 
     //filter the values from state clientsubList list 
 
     filterValues = () => {
-      
+
         let filterValue = this.state.filterValue;
         if (filterValue != "") {
             let filterClient = this.state.clientList.filter(
@@ -294,19 +291,19 @@ class ClientSubscription extends React.Component {
                     filtered: value
                 })
 
-                this.checkfn() 
+                this.checkfn()
             }
             else if (filterService.length != 0) {
 
                 let value = filterService.map((result) => { return result.appServiceID })
                 this.setState({ filtered: value })
-                this.checkfn() 
+                this.checkfn()
             }
-            else {  }
+            else { }
         }
         else {
             this.setState({ filteredResult: "" })
-        } 
+        }
     }
 
     //check for filtered values
@@ -328,7 +325,7 @@ class ClientSubscription extends React.Component {
     }
 
 
-//render the final client list in grid
+    //render the final client list in grid
 
     renderClientSubList = () => {
 
@@ -363,7 +360,7 @@ class ClientSubscription extends React.Component {
         }
     }
 
-//render the client API dropdown
+    //render the client API dropdown
 
     renderClientDropDown = () => {
         return this.state.clientList.map((result) => {
@@ -384,38 +381,38 @@ class ClientSubscription extends React.Component {
     }
 
 
- //render method
+    //render method
 
     render() {
-        
+
         return (
-            
+
             <div >
                 <Loader loaded={this.state.loaded} />
                 <Header onRef={ref => (this.child = ref)} />
                 <div class="custom-container">
-                <div class="tab-content">
-                <div className="application-content custom-card" >
-                <Container fluid >
-                    <Row>
-                        <Col>
-                        <h5>Client Subscription Form</h5>
-                            <form class="d-flex flex-wrap  custom-form" onSubmit={this.handleFormSubmit}>                               
-                                <div class="form-group custom-form-group">
-                                    <h5>Clients</h5>
-                                    <select
-                                        name='clientID'
-                                        class="form-control custom-form-control custom-select-control"
-                                        defaultValue={this.state.clientList}
-                                        onChange={this.changeClientID}
-                                    ><option>select client</option>
-                                        
-                                        {this.renderClientDropDown()}
-                                    </select>
-                                   
-                                
-                                </div>
-                               
+                    <div class="tab-content">
+                        <div className="application-content custom-card" >
+                            <Container fluid >
+                                <Row>
+                                    <Col>
+                                        <h5>Client Subscription Form</h5>
+                                        <form class="d-flex flex-wrap  custom-form" onSubmit={this.handleFormSubmit}>
+                                            <div class="form-group custom-form-group">
+                                                <h5>Clients</h5>
+                                                <select
+                                                    name='clientID'
+                                                    class="form-control custom-form-control custom-select-control"
+                                                    defaultValue={this.state.clientList}
+                                                    onChange={this.changeClientID}
+                                                ><option>select client</option>
+
+                                                    {this.renderClientDropDown()}
+                                                </select>
+
+
+                                            </div>
+
                                             <div class="form-group custom-form-group">
                                                 <h5>Services</h5>
                                                 <select
@@ -437,8 +434,8 @@ class ClientSubscription extends React.Component {
                                                 />
 
                                             </div>
-                                <div class="form-group custom-form-group">
-                                    <h5>Subscription Status</h5>
+                                            <div class="form-group custom-form-group">
+                                                <h5>Subscription Status</h5>
                                                 <input
                                                     type="radio"
                                                     value="true"
@@ -446,33 +443,33 @@ class ClientSubscription extends React.Component {
                                                     onChange={this.changeRadio}
                                                 /> ACTIVE
 
-                                                <br/>
+                                                <br />
                                                 <input
                                                     type="radio"
                                                     value="false"
                                                     checked={this.state.subStatus === "false"}
                                                     onChange={this.changeRadio}
                                                 /> INACTIVE
-                                   
+
                                 </div>
-                                           
-                                          
-                                <div class="form-group custom-form-group custom-button-group">
-                                <button class="button primary-button float-sm-right" type="submit"> ADD</button>
-                                            </div>    
-                                     </form>
-                                     </Col>
+
+
+                                            <div class="form-group custom-form-group custom-button-group">
+                                                <button class="button primary-button float-sm-right" type="submit"> ADD</button>
+                                            </div>
+                                        </form>
+                                    </Col>
                                 </Row>
 
-                               <Row>
+                                <Row>
                                     <Col>
                                         <Navbar className="bg-light justify-content-between">
                                             <Form inline>
                                                 <h5>Subscription List</h5>
                                             </Form>
-                                           <Form inline>
+                                            <Form inline>
                                                 <FormControl
-                                                   className=" mr-sm-2"
+                                                    className=" mr-sm-2"
                                                     type="text"
                                                     name='filterValue'
                                                     onChange={this.filterInput}
@@ -481,33 +478,33 @@ class ClientSubscription extends React.Component {
                                                 <FormControl.Feedback />
                                             </Form>
                                         </Navbar>
-                                         <Table responsive hover size="sm">
-                                         <thead>
-                                         <tr key={this.state.temp}>
-                                         <th>Client Name</th>
-                                         <th>AppService Name</th>
-                                         <th>LicenseExpiredDate</th>
-                                         <th>LicenseActivationDate</th>
-                                         <th>SubscriptionActive</th>
-                                         <th>Action</th>
-                                         </tr>
-                                         </thead>
-                                          <tbody>
-                                                    {this.renderClientSubList()}
-                                         </tbody>
+                                        <Table responsive hover size="sm">
+                                            <thead>
+                                                <tr key={this.state.temp}>
+                                                    <th>Client Name</th>
+                                                    <th>AppService Name</th>
+                                                    <th>LicenseExpiredDate</th>
+                                                    <th>LicenseActivationDate</th>
+                                                    <th>SubscriptionActive</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {this.renderClientSubList()}
+                                            </tbody>
                                         </Table>
-                                     </Col>
-                                    
+                                    </Col>
+
                                 </Row>
 
                                 <Row className="justify-content-md-center">
-                                     <Col>
-                                                    {this.renderPageNumbersBar()}
-                                      </Col>
+                                    <Col>
+                                        {this.renderPageNumbersBar()}
+                                    </Col>
                                 </Row>
-                </Container>
-                            
-            </div>  </div>  </div>  </div>
+                            </Container>
+
+                        </div>  </div>  </div>  </div>
         )
 
     }
